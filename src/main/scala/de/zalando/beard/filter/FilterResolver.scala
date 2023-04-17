@@ -1,13 +1,13 @@
 package de.zalando.beard.filter
 
-import de.zalando.beard.filter.implementations.{DateFormatFilter, TranslationFilter}
+import de.zalando.beard.filter.implementations.{ DateFormatFilter, TranslationFilter }
 import org.slf4j.LoggerFactory
 
-import scala.collection.immutable.{Map, Seq, Set}
+import scala.collection.immutable.{ Map, Seq, Set }
 
 /**
- * @author dpersa
- */
+  * @author dpersa
+  */
 trait FilterResolver {
 
   def registeredFilters = Seq(
@@ -24,7 +24,8 @@ trait FilterResolver {
     TitleFilter(),
     TrimFilter(),
     UppercaseFilter(),
-    UrlEncodeFilter())
+    UrlEncodeFilter()
+  )
 
   def filters: Map[String, Filter]
 
@@ -40,11 +41,12 @@ case class DefaultFilterResolver(userFilters: Seq[Filter] = Seq()) extends Filte
     filters.get(identifier)
   }
 
-  override def filters: Map[String, Filter] = {
+  override def filters: Map[String, Filter] =
     // User Filters overwrites registered filters map
-    (registeredFilters ++ userFilters).map {
-      case filter =>
+    (registeredFilters ++ userFilters)
+      .map { case filter =>
         (filter.name, filter)
-    }.toList.toMap[String, Filter]
-  }
+      }
+      .toList
+      .toMap[String, Filter]
 }

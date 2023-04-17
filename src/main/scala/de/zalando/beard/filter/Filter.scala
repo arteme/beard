@@ -1,14 +1,14 @@
 package de.zalando.beard.filter
 
 import java.net.URLEncoder
-import java.text.{DecimalFormat, DecimalFormatSymbols, NumberFormat}
+import java.text.{ DecimalFormat, DecimalFormatSymbols, NumberFormat }
 
 import scala.annotation.tailrec
 import scala.collection.immutable.Map
 
 /**
- * @author dpersa
- */
+  * @author dpersa
+  */
 trait Filter {
   def name: String
 
@@ -18,20 +18,22 @@ trait Filter {
     value.map(v => apply(v.toString, parameters))
 
   /**
-   * Although a map is just an Iterable[(A, B)] it's hard to match on this type
-   * because of how tuple are defined in scala, Map[String, String] is not a subtype of Iterable[String].
-   */
+    * Although a map is just an Iterable[(A, B)] it's hard to match on this type
+    * because of how tuple are defined in scala, Map[String, String] is not a subtype of Iterable[String].
+    */
   def applyMap(value: Map[_, _], parameters: Map[String, Any] = Map()): Map[String, String] =
-    value.map{ case (k, v) => (k.toString, apply(v.toString, parameters)) }
+    value.map { case (k, v) => (k.toString, apply(v.toString, parameters)) }
 }
 
-class FilterException(message: String) extends RuntimeException(message)
+class FilterException(message: String)                      extends RuntimeException(message)
 case class ParameterMissingException(parameterName: String) extends FilterException(parameterName)
-case class WrongParameterTypeException(parameterName: String, paramterType: String) extends FilterException(parameterName)
+case class WrongParameterTypeException(parameterName: String, paramterType: String)
+    extends FilterException(parameterName)
 case class TypeNotSupportedException(filterName: String, className: String) extends FilterException(filterName)
-case class FilterNotFound(filterName: String) extends FilterException(filterName)
+case class FilterNotFound(filterName: String)                               extends FilterException(filterName)
 
-case class InputFormatException(filterName: String, message: String) extends FilterException(s"${filterName} - ${message}")
+case class InputFormatException(filterName: String, message: String)
+    extends FilterException(s"${filterName} - ${message}")
 
 class LowercaseFilter extends Filter {
 
@@ -65,10 +67,9 @@ class NumberFilter extends Filter {
   override def apply(value: String, parameters: Predef.Map[String, Any]): String = {
     val number = BigDecimal(value)
     parameters.get("format") match {
-      case Some(format: String) => {
+      case Some(format: String) =>
         val formatter = new DecimalFormat(format)
         formatter.format(number)
-      }
       case Some(thing) => throw WrongParameterTypeException("format", "String")
       case _           => NumberFormat.getNumberInstance.format(number)
     }
@@ -85,16 +86,14 @@ class CurrencyFilter extends Filter {
   override def apply(value: String, parameters: Predef.Map[String, Any]): String = {
     val number = BigDecimal(value)
     val currency = parameters.get("symbol") match {
-      case Some(symbol: String) => {
+      case Some(symbol: String) =>
         Option(symbol)
-      }
       case Some(thing) => throw WrongParameterTypeException("symbol", "String")
       case _           => None
     }
     val formatter = parameters.get("format") match {
-      case Some(format: String) => {
+      case Some(format: String) =>
         new DecimalFormat(format)
-      }
       case Some(thing) => throw WrongParameterTypeException("format", "String")
       case _           => NumberFormat.getCurrencyInstance().asInstanceOf[DecimalFormat]
     }
@@ -176,10 +175,9 @@ class ReverseFilter extends Filter {
 
   override def applyIterable(value: Iterable[_], parameters: Map[String, Any]): Iterable[String] = {
     @tailrec
-    def iterate(acc: Seq[String], coll: Iterable[_]): Iterable[String] = {
+    def iterate(acc: Seq[String], coll: Iterable[_]): Iterable[String] =
       if (coll.isEmpty) acc
       else iterate(acc :+ coll.last.toString, coll.init)
-    }
 
     if (value.nonEmpty) iterate(Seq.empty, value)
     else throw new IllegalArgumentException("Cannot call reverse on an empty list")
@@ -187,13 +185,12 @@ class ReverseFilter extends Filter {
 
   override def applyMap(value: Map[_, _], parameters: Map[String, Any]): Map[String, String] = {
     @tailrec
-    def iterate(acc: Map[String, String], coll: Map[_, _]): Map[String, String] = {
+    def iterate(acc: Map[String, String], coll: Map[_, _]): Map[String, String] =
       if (coll.isEmpty) acc
       else {
         val last = coll.last
         iterate(acc + ((last._1.toString, last._2.toString)), coll.init)
       }
-    }
     if (value.nonEmpty) iterate(Map.empty, value)
     else throw new IllegalArgumentException("Cannot call reverse on an empty list")
   }
@@ -242,4 +239,3 @@ class AbsFilter extends Filter {
   override def apply(value: String, parameters: Map[String, Any]): String =
     Math.abs(BigDecimal(value).toLong).toString
 }
-

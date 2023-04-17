@@ -2,13 +2,13 @@ package de.zalando.beard.parser
 
 import de.zalando.beard.BeardLexer
 import org.antlr.v4.runtime.misc.Interval
-import org.antlr.v4.runtime.{CharStream, LexerNoViableAltException}
+import org.antlr.v4.runtime.{ CharStream, LexerNoViableAltException }
 
 class CustomBeardLexer(input: CharStream) extends BeardLexer(input) {
 
   override def notifyListeners(e: LexerNoViableAltException): Unit = {
     val sourceCode = extractSourceCode()
-    val tokenText = _input.getText(Interval.of(_tokenStartCharIndex, _input.index()))
+    val tokenText  = _input.getText(Interval.of(_tokenStartCharIndex, _input.index()))
     val msg =
       s"""token recognition error at: '${getErrorDisplay(tokenText)}'
          |$sourceCode
@@ -22,13 +22,12 @@ class CustomBeardLexer(input: CharStream) extends BeardLexer(input) {
 
   private def extractSourceCode(): String = {
     val lineStart = Math.max(0, _tokenStartCharIndex - _tokenStartCharPositionInLine)
-    val lineEnd = Math.min(_input.size, _tokenStartCharIndex + DefaultStringLength)
+    val lineEnd   = Math.min(_input.size, _tokenStartCharIndex + DefaultStringLength)
 
     val lineOfCode = _input
       .getText(Interval.of(lineStart, lineEnd))
-      .lines()
-      .iterator()
-      .next()
+      .linesIterator
+      .next
 
     val highlight = "^".padTo(_tokenStartCharPositionInLine + 1, " ").reverse.mkString
 

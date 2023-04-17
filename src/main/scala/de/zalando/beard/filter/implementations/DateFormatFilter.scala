@@ -1,6 +1,6 @@
 package de.zalando.beard.filter.implementations
 
-import java.time.{ZoneId, LocalDateTime, LocalDate, OffsetDateTime, Instant}
+import java.time.{ Instant, LocalDate, LocalDateTime, OffsetDateTime, ZoneId }
 import java.time.format.DateTimeFormatter
 
 import de.zalando.beard.filter._
@@ -9,8 +9,8 @@ import scala.collection.immutable.Map
 import scala.util.matching.Regex
 
 /**
- * @author rweyand
- */
+  * @author rweyand
+  */
 class DateFormatFilter extends Filter {
   // {{ now | date format=format.Variable}}
   override def name = "date"
@@ -20,15 +20,13 @@ class DateFormatFilter extends Filter {
   override def apply(value: String, parameters: Map[String, Any]): String =
     parameters.get("format") match {
       // format given as static string in the template
-      case Some(format: String) => {
+      case Some(format: String) =>
         val dateTimeFormatter = getDateTimeFormatter(format)
         resolveDateFormatting(value, dateTimeFormatter)
-      }
       // format given as variable (resolves to nested Option)
-      case Some(Some(format)) => {
+      case Some(Some(format)) =>
         val dateTimeFormatter = getDateTimeFormatter(format.asInstanceOf[String])
         resolveDateFormatting(value, dateTimeFormatter)
-      }
       case Some(thing) => throw WrongParameterTypeException("format", "String")
       case None        => throw ParameterMissingException("format")
     }
@@ -37,7 +35,7 @@ class DateFormatFilter extends Filter {
     // All formatters supported by DateTimeFormatter may be added in a form:
     //  """REGEX""" -> "FORMATTER"
     // Grouping is not allowed: '(', ')' chars must be escaped, if used
-    val datePatterns: Map[String, String] = Map (
+    val datePatterns: Map[String, String] = Map(
       // 981173106
       """\d{9,10}""" -> "EPOCH",
       // 981173106987
@@ -81,11 +79,11 @@ class DateFormatFilter extends Filter {
     )
 
     val pattern = new Regex(datePatterns.keys.mkString("^((", ")|(", "))$"))
-    val a = pattern.findFirstMatchIn(value)
+    val a       = pattern.findFirstMatchIn(value)
 
     if (a.isDefined) {
       val patternIndex = a.get.subgroups.indexOf(value, 1)
-      val formatIn = datePatterns.slice(patternIndex - 1, patternIndex).values.mkString
+      val formatIn     = datePatterns.slice(patternIndex - 1, patternIndex).values.mkString
 
       return formatIn match {
         case "EPOCH"                => getFormatFromEpoch(value, formatOut)
@@ -101,45 +99,35 @@ class DateFormatFilter extends Filter {
     throw new DateFormatNotSupportedException(value)
   }
 
-  def getFormatFromMillis(millisAsString: String, formatter: DateTimeFormatter): String = {
+  def getFormatFromMillis(millisAsString: String, formatter: DateTimeFormatter): String =
     formatter.format(LocalDateTime.ofInstant(Instant.ofEpochMilli(millisAsString.toLong), ZoneId.of("GMT")))
-  }
 
-  def getFormatFromEpoch(epoch: String, formatter: DateTimeFormatter): String = {
+  def getFormatFromEpoch(epoch: String, formatter: DateTimeFormatter): String =
     formatter.format(LocalDateTime.ofInstant(Instant.ofEpochSecond(epoch.toLong), ZoneId.of("GMT")))
-  }
 
-  def getFormatFromInstant(dateSrc: String, formatter: DateTimeFormatter): String = {
+  def getFormatFromInstant(dateSrc: String, formatter: DateTimeFormatter): String =
     formatter.format(LocalDateTime.ofInstant(Instant.parse(dateSrc), ZoneId.systemDefault()))
-  }
 
-  def getFormatFromLocal(dateSrc: String, formatter: DateTimeFormatter): String = {
+  def getFormatFromLocal(dateSrc: String, formatter: DateTimeFormatter): String =
     formatter.format(LocalDateTime.parse(dateSrc))
-  }
 
-  def getFormatFromOffset(dateSrc: String, formatter: DateTimeFormatter): String = {
+  def getFormatFromOffset(dateSrc: String, formatter: DateTimeFormatter): String =
     formatter.format(OffsetDateTime.parse(dateSrc))
-  }
 
-  def getFormatFromOffsetDate(dateSrc: String, formatter: DateTimeFormatter): String = {
+  def getFormatFromOffsetDate(dateSrc: String, formatter: DateTimeFormatter): String =
     formatter.format(LocalDate.parse(dateSrc, DateTimeFormatter.ISO_OFFSET_DATE))
-  }
 
-  def getFormatFromPattern(dateSrc: String, formatIn: String, formatter: DateTimeFormatter): String = {
-    try {
-      formatter.format(DateTimeFormatter.ofPattern(formatIn).parse(dateSrc))
-    } catch {
+  def getFormatFromPattern(dateSrc: String, formatIn: String, formatter: DateTimeFormatter): String =
+    try formatter.format(DateTimeFormatter.ofPattern(formatIn).parse(dateSrc))
+    catch {
       case e: Exception => throw new DateFormatNotSupportedException(formatIn)
     }
-  }
 
-  def getDateTimeFormatter(format: String): DateTimeFormatter = {
-    try {
-      DateTimeFormatter.ofPattern(format)
-    } catch {
+  def getDateTimeFormatter(format: String): DateTimeFormatter =
+    try DateTimeFormatter.ofPattern(format)
+    catch {
       case e: Exception => throw new DateFormatNotSupportedException(format)
     }
-  }
 }
 
 object DateFormatFilter {
