@@ -20,5 +20,5 @@ case class StringWriterRenderResult() extends RenderResult[StringWriter] {
   override def write(renderedChunk: String): Unit =
     stringWriter.write(renderedChunk)
 
-  override def result = stringWriter
+  override def result: StringWriter = stringWriter
 }

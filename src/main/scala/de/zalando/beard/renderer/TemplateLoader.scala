@@ -1,6 +1,5 @@
 package de.zalando.beard.renderer
 
-import java.io.{ File, FileNotFoundException }
 import org.slf4j.LoggerFactory
 import scala.io.Source
 import scala.util.{ Failure, Success, Try }
@@ -17,23 +16,23 @@ class ClasspathTemplateLoader(val templatePrefix: String = "", val templateSuffi
 
   private val logger = LoggerFactory.getLogger(this.getClass)
 
-  override def load(templateName: TemplateName) = {
-    val path = s"${templatePrefix}${templateName.name}$templateSuffix"
+  override def load(templateName: TemplateName): Try[String] = {
+    val path = s"$templatePrefix${templateName.name}$templateSuffix"
 
     logger.debug(s"Looking for template with path: $path")
 
-    val source = Option(getClass.getResourceAsStream(path))
-      .flatMap(stream => Option(Source.fromInputStream(stream)))
-      .flatMap(source => Option(source.mkString))
-    source match {
-      case Some(source) => new Success(source)
-      case None =>
-        new Failure(
-          new TemplateLoadException(
-            s"Expected to find template '${templateName.name}' in file '${path}', file not found on classpath"
-          )
-        )
-    }
+    Try(getClass.getResourceAsStream(path))
+      .map(Source.fromInputStream)
+      .map(_.mkString)
+      .fold(
+        _ =>
+          Failure(
+            new TemplateLoadException(
+              s"Expected to find template '${templateName.name}' in file '$path', file not found on classpath"
+            )
+          ),
+        src => Success(src)
+      )
   }
 }
 
@@ -42,17 +41,14 @@ class FileTemplateLoader(
     val templateSuffix: String = ""
 ) extends TemplateLoader {
 
-  override def load(templateName: TemplateName) = {
+  override def load(templateName: TemplateName): Try[String] = {
     val path = s"$directoryPath/${templateName.name}$templateSuffix"
-    Try {
-      try Source.fromFile(path).mkString
-      catch {
-        case e: FileNotFoundException =>
-          throw new TemplateLoadException(
-            s"Expected to find template '${templateName.name}' in file '${path}', file not found"
-          )
-      }
-    }
+    Try(Source.fromFile(path)).fold(_ =>
+      Failure(
+        new TemplateLoadException(
+          s"Expected to find template '${templateName.name}' in file '$path', file not found"
+        )
+      ), b => Success(b.mkString))
   }
 }
 
