@@ -1,6 +1,6 @@
 # Beard: A Blazing-Fast Template Engine
 
-[![Build Status](https://travis-ci.org/zalando/beard.svg)](https://travis-ci.org/zalando/beard)
+[![Build status](https://github.com/BranislavLazic/beard/actions/workflows/scala.yml/badge.svg)](https://github.com/BranislavLazic/beard/actions/workflows/scala.yml)
 
 Beard is a logic-less templating engine written in Scala and inspired by [Mustache](https://mustache.github.io/). You can use it out-of-the-box; see the [Requirements list](#requirements) below.
 
