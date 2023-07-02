@@ -12,15 +12,15 @@ crossScalaVersions := Seq(scalaVersion.value, "2.12.17")
 
 enablePlugins(Antlr4Plugin)
 
-antlr4GenListener in Antlr4 := true
+Antlr4 / antlr4GenListener := true
 
-antlr4GenVisitor in Antlr4 := true
+Antlr4 / antlr4GenVisitor := true
 
-antlr4Version in Antlr4 := antlrVersion
+Antlr4 / antlr4Version := antlrVersion
 
-antlr4Dependency in Antlr4 := "org.antlr" % "antlr4" % antlrVersion
+Antlr4 / antlr4Dependency := "org.antlr" % "antlr4" % antlrVersion
 
-antlr4PackageName in Antlr4 := Some("de.zalando.beard")
+Antlr4 / antlr4PackageName := Some("de.zalando.beard")
 
 libraryDependencies ++= {
   Seq(
@@ -42,5 +42,5 @@ libraryDependencies ++= {
 }
 
 logBuffered := false
-parallelExecution in Test := false
+Test / parallelExecution := false
 // testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework")
