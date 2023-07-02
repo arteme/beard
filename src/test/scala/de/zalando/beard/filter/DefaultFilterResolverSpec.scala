@@ -1,12 +1,12 @@
 package de.zalando.beard.filter
 
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 import org.slf4j.LoggerFactory
 
 /**
  * @author dpersa
  */
-class DefaultFilterResolverSpec extends FunSpec {
+class DefaultFilterResolverSpec extends AnyFunSpec {
 
   val logger = LoggerFactory.getLogger(this.getClass)
 

@@ -2,12 +2,13 @@ package de.zalando.beard.filter
 
 import java.util.Locale
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * @author Emiliano Busiello.
  */
-class LowercaseFilterSpec extends FunSpec with Matchers {
+class LowercaseFilterSpec extends AnyFunSpec with Matchers {
   describe("LowercaseFilterTest") {
 
     val filter = new LowercaseFilter

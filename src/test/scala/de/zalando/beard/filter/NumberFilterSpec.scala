@@ -2,13 +2,14 @@ package de.zalando.beard.filter
 
 import java.util.Locale
 import de.zalando.beard.renderer.{TemplateName, StringWriterRenderResult, BeardTemplateRenderer, DefaultTemplateCompiler}
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 import scala.io.Source
 
 /**
  * @author afurdylo
  */
-class NumberFilterSpec extends FunSpec with Matchers {
+class NumberFilterSpec extends AnyFunSpec with Matchers {
 
   Locale.setDefault(Locale.US)
 

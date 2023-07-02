@@ -1,11 +1,12 @@
 package de.zalando.beard.renderer
 
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * @autor cesarla
  */
-class EscapeStrategySpec extends FunSpec with Matchers {
+class EscapeStrategySpec extends AnyFunSpec with Matchers {
   describe("XMLEscapeStrategy") {
     it("should escape the XML/HTML special characters") {
       EscapeStrategy.xml.escape("<div>Test</div>") should be {

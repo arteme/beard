@@ -1,14 +1,16 @@
 package de.zalando.beard.filter
 
 import java.util.Locale
-import de.zalando.beard.renderer.{BeardTemplateRenderer, DefaultTemplateCompiler, TemplateName, StringWriterRenderResult}
-import org.scalatest.{Matchers, FunSpec}
+import de.zalando.beard.renderer.{BeardTemplateRenderer, DefaultTemplateCompiler, StringWriterRenderResult, TemplateName}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
+
 import scala.io.Source
 
 /**
  * @author afurdylo
  */
-class CurrencyFilterSpec extends FunSpec with Matchers {
+class CurrencyFilterSpec extends AnyFunSpec with Matchers {
   Locale.setDefault(Locale.US)
   describe("CurrencyFilterTest") {
     val filter = new CurrencyFilter

@@ -1,12 +1,13 @@
 package de.zalando.beard.filter
 
 import de.zalando.beard.filter.implementations.DateFormatFilter
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * @author scherniavsky
  */
-class DateFormatFilterSpec extends FunSpec with Matchers {
+class DateFormatFilterSpec extends AnyFunSpec with Matchers {
 
   describe("DateFormat filter test") {
 

@@ -1,7 +1,7 @@
 package de.zalando.beard.renderer
 
 import de.zalando.beard.ast.BeardTemplate
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 import org.slf4j.LoggerFactory
 
 import scala.io.Source

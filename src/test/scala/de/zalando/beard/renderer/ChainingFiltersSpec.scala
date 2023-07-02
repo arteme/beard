@@ -1,11 +1,12 @@
 package de.zalando.beard.renderer
 
 import de.zalando.beard.parser.BeardTemplateParser
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.io.Source
 
-class ChainingFiltersSpec extends FunSpec with Matchers {
+class ChainingFiltersSpec extends AnyFunSpec with Matchers {
 
   describe("when chaining filters") {
 

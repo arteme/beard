@@ -2,7 +2,8 @@ package de.zalando.beard.renderer
 
 import java.util.Locale
 import de.zalando.beard.parser.BeardTemplateParser
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 import org.slf4j.LoggerFactory
 import scala.collection.immutable.Seq
 import scala.io.Source
@@ -10,7 +11,7 @@ import scala.io.Source
 /**
  * @author dpersa
  */
-class BeardTemplateRendererSpec extends FunSpec with Matchers {
+class BeardTemplateRendererSpec extends AnyFunSpec with Matchers {
 
   val logger = LoggerFactory.getLogger(this.getClass)
 

@@ -2,7 +2,8 @@ package de.zalando.beard.renderer
 
 import de.zalando.beard.ast._
 import de.zalando.beard.parser.BeardTemplateParser
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.collection.immutable.{Map, Seq}
 import scala.util.Failure
@@ -10,7 +11,7 @@ import scala.util.Failure
 /**
  * @author dpersa
  */
-class CustomizableTemplateCompilerSpec extends FunSpec with Matchers {
+class CustomizableTemplateCompilerSpec extends AnyFunSpec with Matchers {
 
   val compiler = DefaultTemplateCompiler
 
@@ -111,7 +112,7 @@ class CustomizableTemplateCompilerSpec extends FunSpec with Matchers {
         val exception =
           compiler.compile(TemplateName("some-name")) match {
             case Failure(ex) => ex
-            case _           => fail
+            case _           => fail()
           }
         exception shouldBe a[TemplateLoadException]
         exception.getMessage should equal("Expected to find template 'some-name' in file 'some-name', file not found on classpath")
@@ -130,7 +131,7 @@ class CustomizableTemplateCompilerSpec extends FunSpec with Matchers {
         val exception =
           compiler.compile(TemplateName("some-name")) match {
             case Failure(ex) => ex
-            case _           => fail
+            case _           => fail()
           }
         exception shouldBe a[TemplateLoadException]
         exception.getMessage should equal("Expected to find template 'some-name' in file '/some-name', file not found")

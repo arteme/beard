@@ -1,12 +1,13 @@
 package de.zalando.beard.renderer
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 import org.slf4j.LoggerFactory
 
 /**
  * @author dpersa
  */
-class WhitespacesSpec extends FunSpec with Matchers {
+class WhitespacesSpec extends AnyFunSpec with Matchers {
 
   val logger = LoggerFactory.getLogger(this.getClass)
 

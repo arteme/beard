@@ -31,13 +31,13 @@ libraryDependencies ++= {
     "org.scala-lang.modules"           %% "scala-xml"       % "1.3.0",
     "org.slf4j"                         % "slf4j-api"       % "1.7.30",
     "ch.qos.logback"                    % "logback-classic" % "1.1.11",
-    "org.scalatest"                    %% "scalatest"       % "3.1.1"  % "test",
+    "org.scalatest"                    %% "scalatest"       % "3.2.15" % "test",
     "io.pebbletemplates"                % "pebble"          % "3.0.10" % "test",
     "org.freemarker"                    % "freemarker"      % "2.3.28" % "test",
     "com.github.spullara.mustache.java" % "compiler"        % "0.9.6"  % "test",
     "com.github.jknack"                 % "handlebars"      % "4.1.2"  % "test",
     "de.neuland-bfi"                    % "jade4j"          % "1.2.7"  % "test",
-    "com.storm-enroute"                %% "scalameter"      % "0.19"   % "test"
+    "com.storm-enroute"                %% "scalameter"      % "0.21"   % "test"
   )
 }
 

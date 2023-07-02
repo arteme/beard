@@ -1,11 +1,12 @@
 package de.zalando.beard.renderer
 
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * @author dpersa
  */
-class RenderWithLayoutSpec extends FunSpec with Matchers {
+class RenderWithLayoutSpec extends AnyFunSpec with Matchers {
 
   val loader = new ClasspathTemplateLoader(
     templatePrefix = "/layout-render",

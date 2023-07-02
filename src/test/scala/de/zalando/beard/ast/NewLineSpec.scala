@@ -1,11 +1,12 @@
 package de.zalando.beard.ast
 
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * @author dpersa
  */
-class NewLineSpec extends FunSpec with Matchers {
+class NewLineSpec extends AnyFunSpec with Matchers {
 
   it("should return the right text") {
     NewLine(3).text should be("\n\n\n")

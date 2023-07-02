@@ -1,12 +1,13 @@
 package de.zalando.beard.renderer
 
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 import scala.collection.immutable.Seq
 
 /**
  * @author dpersa
  */
-class ForContextFactorySpec extends FunSpec with Matchers {
+class ForContextFactorySpec extends AnyFunSpec with Matchers {
 
   describe("ForContextFactory") {
 

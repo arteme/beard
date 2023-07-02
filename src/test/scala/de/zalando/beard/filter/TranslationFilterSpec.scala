@@ -1,12 +1,13 @@
 package de.zalando.beard.filter
 
 import de.zalando.beard.filter.implementations.TranslationFilter
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * @author rweyand
  */
-class TranslationFilterSpec extends FunSpec with Matchers {
+class TranslationFilterSpec extends AnyFunSpec with Matchers {
   describe("Translation filter") {
     it("should  resolve locale and bundle when given correct arguments") {
       val filter = TranslationFilter()

@@ -1,11 +1,12 @@
 package de.zalando.beard.parser
 
 import org.antlr.v4.runtime.{CharStream, CharStreams}
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.jdk.CollectionConverters._
 
-class BeardLexerSpec extends FunSpec with Matchers {
+class BeardLexerSpec extends AnyFunSpec with Matchers {
 
   describe("BeardLexer") {
     it("should parse the correct tokens") {

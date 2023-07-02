@@ -1,11 +1,12 @@
 package de.zalando.beard.filter
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * @author boopathi
  */
-class FilterSpec extends FunSpec with Matchers {
+class FilterSpec extends AnyFunSpec with Matchers {
 
   describe("filters") {
 

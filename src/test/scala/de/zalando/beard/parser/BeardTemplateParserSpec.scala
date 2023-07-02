@@ -1,11 +1,12 @@
 package de.zalando.beard.parser
 
 import de.zalando.beard.ast._
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 import scala.collection.immutable.Seq
 import scala.io.Source
 
-class BeardTemplateParserSpec extends FunSpec with Matchers {
+class BeardTemplateParserSpec extends AnyFunSpec with Matchers {
 
   describe("when parsing an empty string") {
     it("should return an empty BeardTemplate for an empty") {

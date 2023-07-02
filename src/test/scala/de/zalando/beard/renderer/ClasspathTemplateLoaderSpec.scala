@@ -1,12 +1,13 @@
 package de.zalando.beard.renderer
 
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 import scala.util.{Success, Failure, Try}
 
 /**
  * @author dpersa
  */
-class ClasspathTemplateLoaderSpec extends FunSpec with Matchers {
+class ClasspathTemplateLoaderSpec extends AnyFunSpec with Matchers {
 
   describe("simple loader") {
 

@@ -1,11 +1,12 @@
 package de.zalando.beard.filter
 
-import org.scalatest.{FunSpec, Matchers}
+import org.scalatest.funspec.AnyFunSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * @author Emiliano Busiello.
  */
-class UppercaseFilterSpec extends FunSpec with Matchers {
+class UppercaseFilterSpec extends AnyFunSpec with Matchers {
   describe("UppercaseFilterTest") {
 
     val filter = new UppercaseFilter
